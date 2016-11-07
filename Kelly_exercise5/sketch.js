@@ -32,7 +32,14 @@ function draw() {
   
 
     for(var i=0;i<word_count;i++) {
+      
+      // different color for marked words
+      for (var j=0;j<arr.length;j++){
+        arr[j].update();
+      }
+      // always black for normal words
       fill(0);
+      // `who` is an important word in Ginsberg's poem. 
       /*
       if ((poem[0][i] == 'w') && (poem[0][i+1] == 'h') && (poem[0][i+2] == 'o')) 
         fill(255, 0, 0);
@@ -42,13 +49,15 @@ function draw() {
         fill(255, 0, 0);
       */
       
+      // I re-use some of my code last week
       if (state == 'dropping') {
         for (var j=0; j<hidden_input.length; j++) {
           if (poem[0][i] == hidden_input[j]) {
             skip = true;
-            //var n = new MusicBrick(x, y);
-            //n.update();
-            //arr.push(n);
+            var n = new MusicBrick(x, y, poem[0][i]);
+            n.display();
+            arr.push(n);
+            
             
           }
         }
@@ -60,20 +69,24 @@ function draw() {
           }
         }
       }
+      
       if (skip) {
         text(" ", x, y);
       } else {
         text(poem[0][i], x, y);
       }
+      // manually move along x-axis
       x += 15;
       skip = false;
+      
+      // handle line breaks!
       if ((x >= 1000) || (poem[0][i] == ',')){
         x = 80;
         y += 30;
       }
     } // end for
 
-
+  // handle user inputs
   text("Type something: ", 100, 500);
   text(input, 330, 500);
   

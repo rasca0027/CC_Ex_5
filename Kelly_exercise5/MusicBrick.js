@@ -1,24 +1,24 @@
 
-function MusicBrick(x, y) {
+function MusicBrick(x, y, w) {
   this.base_x = x;
   this.base_y = y;
   this.x = x;
   this.y = y;
-  this.osc = new p5.Oscillator();
-  this.speed = 0.08;
+  this.speed = 0.05;
   this.stop = false;
+  this.word = w;
   
   this.display = function() {
     noStroke();
     rectMode(CENTER);
     fill(this.x, 60, 150);
     //fill(random(255), 60, 150);
-    rect(this.x, this.y, 40, 40);
-    this.osc.freq(this.x+this.y);
-    this.osc.start();
+    text(this.word, this.x, this.y);
+    
   }
   
   this.update = function() {
+    
     noStroke();
     rectMode(CENTER);
     // make gradient color
@@ -32,12 +32,9 @@ function MusicBrick(x, y) {
         this.y = 580;
         this.stop = true;
       }
-    } else {
-      this.osc.stop();
-    }
-    
+    } 
     // finally draw it
-    rect(this.x, this.y, 40, 40);
+    text(this.word, this.x, this.y);
     
   }
   
